@@ -243,7 +243,7 @@ public:
         return (*this);
     }
 
-    inline Class_Matrix_f32<row, column> &operator/=(float &Value)
+    inline Class_Matrix_f32<row, column> &operator/=(const float &Value)
     {
         if (fabs(Value) <= Matrix_Compare_Epsilon)
         {
@@ -277,23 +277,9 @@ public:
     }
 
     template<int tmp_row, int tmp_column>
-    inline Class_Matrix_f32<row, column> operator!=(const Class_Matrix_f32<row, column> &Matrix) const
+    inline bool operator!=(const Class_Matrix_f32<tmp_row, tmp_column> &Matrix) const
     {
-        if (row != tmp_row || column != tmp_column)
-        {
-            return (true);
-        }
-        else
-        {
-            for (int i = 0; i < row * column; i++)
-            {
-                if (fabs(Data[i] - Matrix.Data[i]) > Matrix_Compare_Epsilon)
-                {
-                    return (true);
-                }
-            }
-            return (false);
-        }
+        return (!(*this == Matrix));
     }
 
     inline Class_Matrix_f32<column, row> Get_Transpose() const;
